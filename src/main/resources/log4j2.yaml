@@ -1,0 +1,69 @@
+Configuration:
+  name: Default
+
+  Properties:
+    Property:
+      name: log-path
+      value: "/wslogs"
+
+  Appenders:
+
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        
+        
+    RollingFile:
+      - name: RollingFile_Appender
+        fileName: ${log-path}/all.log
+        filePattern: "${log-path}/archive/all.log.%d{yyyy-MM-dd-HH-mm-ss}.gz"
+        PatternLayout:
+          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 10 MB
+        DefaultRollOverStrategy:
+          max: 100
+          
+   
+
+          
+      - name: XmlRollingFile_Appender
+        fileName: ${log-path}/xmlapi_8080.log
+        filePattern: "${log-path}/archive/xmlapi_8080.log.%d{yyyy-MM-dd-HH-mm-ss}.gz"
+        PatternLayout:
+          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 50 MB
+        DefaultRollOverStrategy:
+          max: 100
+
+  Loggers:
+  
+    Root:
+      Level: info
+      AppenderRef:
+        - ref: RollingFile_Appender
+        - ref: Console_Appender
+
+        
+#    Logger:
+#      
+##      - name: com.gentinghk.mobile
+##        level: debug
+#        
+#      - name: com.gentinghk.mobile.concurrence
+#        level: error
+#        additivity : false
+#        AppenderRef:
+#          - ref: BatchJobErrorFile_Appender
+#          
+#      - name: com.gentinghk.mobile.mq
+#        level: error
+#        additivity : false
+#        AppenderRef:
+#          - ref: DbBatchJobErrorFile_Appender
+  

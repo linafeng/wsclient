@@ -1,0 +1,1183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.avenista.net/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.avenista.net/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.avenista.net/">
+      <s:element name="Version">
+        <s:complexType />
+      </s:element>
+      <s:element name="VersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecuredWebServiceHeader" type="tns:SecuredWebServiceHeader" />
+      <s:complexType name="SecuredWebServiceHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="GetShipInformation">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetShipInformationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetShipInformationResult" type="tns:ArrayOfShipInformationItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfShipInformationItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ShipInformationItem" nillable="true" type="tns:ShipInformationItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ShipInformationItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetRestaurants">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SiteID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRestaurantsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRestaurantsResult" type="tns:ArrayOfRestaurant" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRestaurant">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Restaurant" nillable="true" type="tns:Restaurant" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Restaurant">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetVirtualRestaurants">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SiteID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVirtualRestaurantsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVirtualRestaurantsResult" type="tns:ArrayOfVirtualRestaurant" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfVirtualRestaurant">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="VirtualRestaurant" nillable="true" type="tns:VirtualRestaurant" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VirtualRestaurant">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Restaurant" type="tns:Restaurant" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookingContext" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAvailability">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AvailabilityRequest" type="tns:AvailabilityRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AvailabilityRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ExistingReservationID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RestaurantID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DiningDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PartySize" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="MainParty" type="tns:GuestInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="OtherParties" type="tns:ArrayOfGuestInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="Limits" type="tns:ArrayOfLimit" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookingContext" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="InterrogateTableAvailability" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="SessionType" nillable="true" type="tns:RestaurantSessionType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GuestInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BookingNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Forename" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Surname" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfGuestInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GuestInformation" nillable="true" type="tns:GuestInformation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLimit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Limit" nillable="true" type="tns:Limit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Limit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ResourceIDs" type="tns:ArrayOfString" />
+          <s:element minOccurs="1" maxOccurs="1" name="Start" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Finish" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="BookingLimit" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="RestaurantSessionType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Dinner" />
+          <s:enumeration value="Other" />
+          <s:enumeration value="Breakfast" />
+          <s:enumeration value="Lunch" />
+          <s:enumeration value="Other2" />
+          <s:enumeration value="Other3" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetAvailabilityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvailabilityResult" type="tns:AvailabilityResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AvailabilityResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SessionExists" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="AvailableTimes" type="tns:ArrayOfAvailableTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="LimitsExceeded" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="LimitInformationItems" type="tns:ArrayOfLimitInformationItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAvailableTime">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AvailableTime" nillable="true" type="tns:AvailableTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AvailableTime">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DateAndTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="AvailableTables" nillable="true" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLimitInformationItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LimitInformationItem" nillable="true" type="tns:LimitInformationItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LimitInformationItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Limit" type="tns:Limit" />
+          <s:element minOccurs="0" maxOccurs="1" name="Party" type="tns:DinerInformation" />
+          <s:element minOccurs="1" maxOccurs="1" name="LimitsExceeded" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfRelatedBookings" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DinerInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BookingNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Details" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Submit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReservationRequest" type="tns:ReservationRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReservationRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RestaurantID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RequestedDateTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PartySize" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="MainParty" type="tns:GuestInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="OtherParties" type="tns:ArrayOfGuestInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="Limits" type="tns:ArrayOfLimit" />
+          <s:element minOccurs="0" maxOccurs="1" name="BookingContext" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SubmitResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SubmitResult" type="tns:ReservationResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReservationResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AvenistaReservationID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LimitsExceeded" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="LimitInformationItems" type="tns:ArrayOfLimitInformationItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Cancel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelInfo" type="tns:CancelInformation" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CancelInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AvenistaReservationID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CancelResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="Replace">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReplaceReservationRequest" type="tns:ReplaceReservationRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReplaceReservationRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ExistingReservationID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReservationRequest" type="tns:ReservationRequest" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ReplaceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReplaceResult" type="tns:ReplaceReservationResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReplaceReservationResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NewAvenistaReservationID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LimitsExceeded" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="LimitInformationItems" type="tns:ArrayOfLimitInformationItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAvenistaReservations">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Request" type="tns:GetReservationsRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetReservationsRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ResourceID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Start" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Finish" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Party" type="tns:GuestInformation" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAvenistaReservationsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAvenistaReservationsResult" type="tns:ArrayOfAvenistaReservation" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAvenistaReservation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AvenistaReservation" nillable="true" type="tns:AvenistaReservation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AvenistaReservation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AvenistaReservationID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Details" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Restaurant" type="tns:Restaurant" />
+          <s:element minOccurs="1" maxOccurs="1" name="PredictedArrival" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PartySize" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="MainParty" type="tns:DinerInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="OtherParties" type="tns:ArrayOfDinerInformation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDinerInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DinerInformation" nillable="true" type="tns:DinerInformation" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetItinerary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ItineraryFilter" type="tns:ItineraryFilter" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ItineraryFilter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AvenistaSiteID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuestInformation" type="tns:GuestInformation" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetItineraryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetItineraryResult" type="tns:ArrayOfItineraryResponseItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfItineraryResponseItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ItineraryResponseItem" nillable="true" type="tns:ItineraryResponseItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ItineraryResponseItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AvenistaReservationID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Details" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Restaurant" type="tns:Restaurant" />
+          <s:element minOccurs="1" maxOccurs="1" name="PredictedArrival" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PartySize" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetRestaurantUtilisation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RestaurantUtilisationRequest" type="tns:RestaurantUtilisationRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RestaurantUtilisationRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RestaurantIDs" type="tns:ArrayOfString" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataPoint" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Options" type="tns:UtilisationRequestOptions" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="UtilisationRequestOptions">
+        <s:restriction base="s:string">
+          <s:enumeration value="FutureTimes" />
+          <s:enumeration value="AllTimes" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetRestaurantUtilisationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRestaurantUtilisationResult" type="tns:RestaurantUtilisationResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RestaurantUtilisationResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReportName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RestaurantsUtilisation" type="tns:ArrayOfRestaurantUtilisation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRestaurantUtilisation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RestaurantUtilisation" nillable="true" type="tns:RestaurantUtilisation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RestaurantUtilisation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RestaurantID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RestaurantName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SessionType" type="tns:RestaurantSessionType" />
+          <s:element minOccurs="0" maxOccurs="1" name="SessionTypeName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SessionStartTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="SessionLastArrivalTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="SessionEndTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimeSlotInterval" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DisplayPage" type="tns:DisplayPageType" />
+          <s:element minOccurs="1" maxOccurs="1" name="DisplayListOrder" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TimeSlots" type="tns:ArrayOfResUtilisationTimeSlot" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="DisplayPageType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Unknown" />
+          <s:enumeration value="DoNotDisplay" />
+          <s:enumeration value="SpecialityRestaurant" />
+          <s:enumeration value="InclusiveDining" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfResUtilisationTimeSlot">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ResUtilisationTimeSlot" nillable="true" type="tns:ResUtilisationTimeSlot" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResUtilisationTimeSlot">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TimeSlotTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="DisplayValue" type="tns:UtilisationStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="UtilisationOverridden" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="OriginalDisplayValue" type="tns:UtilisationStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="UtilisationAsPercentage" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="AvailabilityAsPercentage" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxPhysicalCapacity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PhysicalUtilisation" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OBMCoverLimitTS" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OBMCoverLimitSitting" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OBMCoverLimitSession" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ArrivalsCovers" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OBMCoversCapacity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnallocatedUtilisation" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="IntersectionStart" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="IntersectionFinish" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimeSlotStatus" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="UtilisationStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotSet" />
+          <s:enumeration value="Red" />
+          <s:enumeration value="Amber" />
+          <s:enumeration value="Green" />
+          <s:enumeration value="Closed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetMealPeriodUtilisation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MealPeriodUtilisationRequest" type="tns:MealPeriodUtilisationRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MealPeriodUtilisationRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RestaurantIDs" type="tns:ArrayOfString" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataPoint" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMealPeriodUtilisationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMealPeriodUtilisationResult" type="tns:MealPeriodUtilisationResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MealPeriodUtilisationResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MealPeriod" type="tns:MealPeriodType" />
+          <s:element minOccurs="1" maxOccurs="1" name="MealPeriodStartTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="MealPeriodEndTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimeSlotInterval" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MealPeriodUtilisation" type="tns:ArrayOfMealPeriodrestaurantUtilisation" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="MealPeriodType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Morning" />
+          <s:enumeration value="Afternoon" />
+          <s:enumeration value="Evening" />
+          <s:enumeration value="Night" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfMealPeriodrestaurantUtilisation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MealPeriodrestaurantUtilisation" nillable="true" type="tns:MealPeriodrestaurantUtilisation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MealPeriodrestaurantUtilisation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RestaurantID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RestaurantName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DisplayPage" type="tns:DisplayPageType" />
+          <s:element minOccurs="1" maxOccurs="1" name="DisplayListOrder" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TimeSlots" type="tns:ArrayOfResUtilisationTimeSlot" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMealPeriods">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DataPoint" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMealPeriodsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMealPeriodsResult" type="tns:MealPeriodsResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MealPeriodsResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MealPeriods" type="tns:ArrayOfMealPeriodItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMealPeriodItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MealPeriodItem" nillable="true" type="tns:MealPeriodItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MealPeriodItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MealPeriodType" type="tns:MealPeriodType" />
+          <s:element minOccurs="1" maxOccurs="1" name="MealPeriodStartTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="MealPeriodEndTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimeSlotInterval" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Ordinal" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="ArrayOfShipInformationItem" nillable="true" type="tns:ArrayOfShipInformationItem" />
+      <s:element name="ArrayOfRestaurant" nillable="true" type="tns:ArrayOfRestaurant" />
+      <s:element name="ArrayOfVirtualRestaurant" nillable="true" type="tns:ArrayOfVirtualRestaurant" />
+      <s:element name="MealPeriodsResponse" nillable="true" type="tns:MealPeriodsResponse" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="VersionSoapIn">
+    <wsdl:part name="parameters" element="tns:Version" />
+  </wsdl:message>
+  <wsdl:message name="VersionSoapOut">
+    <wsdl:part name="parameters" element="tns:VersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="VersionSecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetShipInformationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetShipInformation" />
+  </wsdl:message>
+  <wsdl:message name="GetShipInformationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetShipInformationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetShipInformationSecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetRestaurantsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRestaurants" />
+  </wsdl:message>
+  <wsdl:message name="GetRestaurantsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRestaurantsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRestaurantsSecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetVirtualRestaurantsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVirtualRestaurants" />
+  </wsdl:message>
+  <wsdl:message name="GetVirtualRestaurantsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVirtualRestaurantsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVirtualRestaurantsSecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailabilitySoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvailability" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailabilitySoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvailabilityResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvailabilitySecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="SubmitSoapIn">
+    <wsdl:part name="parameters" element="tns:Submit" />
+  </wsdl:message>
+  <wsdl:message name="SubmitSoapOut">
+    <wsdl:part name="parameters" element="tns:SubmitResponse" />
+  </wsdl:message>
+  <wsdl:message name="SubmitSecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="CancelSoapIn">
+    <wsdl:part name="parameters" element="tns:Cancel" />
+  </wsdl:message>
+  <wsdl:message name="CancelSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelSecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="ReplaceSoapIn">
+    <wsdl:part name="parameters" element="tns:Replace" />
+  </wsdl:message>
+  <wsdl:message name="ReplaceSoapOut">
+    <wsdl:part name="parameters" element="tns:ReplaceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReplaceSecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetAvenistaReservationsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAvenistaReservations" />
+  </wsdl:message>
+  <wsdl:message name="GetAvenistaReservationsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAvenistaReservationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAvenistaReservationsSecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetItinerarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetItinerary" />
+  </wsdl:message>
+  <wsdl:message name="GetItinerarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetItineraryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetItinerarySecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetRestaurantUtilisationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRestaurantUtilisation" />
+  </wsdl:message>
+  <wsdl:message name="GetRestaurantUtilisationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRestaurantUtilisationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRestaurantUtilisationSecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetMealPeriodUtilisationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMealPeriodUtilisation" />
+  </wsdl:message>
+  <wsdl:message name="GetMealPeriodUtilisationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMealPeriodUtilisationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMealPeriodUtilisationSecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetMealPeriodsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMealPeriods" />
+  </wsdl:message>
+  <wsdl:message name="GetMealPeriodsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMealPeriodsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMealPeriodsSecuredWebServiceHeader">
+    <wsdl:part name="SecuredWebServiceHeader" element="tns:SecuredWebServiceHeader" />
+  </wsdl:message>
+  <wsdl:message name="VersionHttpGetIn" />
+  <wsdl:message name="VersionHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetShipInformationHttpGetIn" />
+  <wsdl:message name="GetShipInformationHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfShipInformationItem" />
+  </wsdl:message>
+  <wsdl:message name="GetRestaurantsHttpGetIn">
+    <wsdl:part name="SiteID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRestaurantsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfRestaurant" />
+  </wsdl:message>
+  <wsdl:message name="GetVirtualRestaurantsHttpGetIn">
+    <wsdl:part name="SiteID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetVirtualRestaurantsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfVirtualRestaurant" />
+  </wsdl:message>
+  <wsdl:message name="GetMealPeriodsHttpGetIn">
+    <wsdl:part name="DataPoint" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMealPeriodsHttpGetOut">
+    <wsdl:part name="Body" element="tns:MealPeriodsResponse" />
+  </wsdl:message>
+  <wsdl:message name="VersionHttpPostIn" />
+  <wsdl:message name="VersionHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetShipInformationHttpPostIn" />
+  <wsdl:message name="GetShipInformationHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfShipInformationItem" />
+  </wsdl:message>
+  <wsdl:message name="GetRestaurantsHttpPostIn">
+    <wsdl:part name="SiteID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRestaurantsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfRestaurant" />
+  </wsdl:message>
+  <wsdl:message name="GetVirtualRestaurantsHttpPostIn">
+    <wsdl:part name="SiteID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetVirtualRestaurantsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfVirtualRestaurant" />
+  </wsdl:message>
+  <wsdl:message name="GetMealPeriodsHttpPostIn">
+    <wsdl:part name="DataPoint" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMealPeriodsHttpPostOut">
+    <wsdl:part name="Body" element="tns:MealPeriodsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AvenistaPMSGuestBookingsSoap">
+    <wsdl:operation name="Version">
+      <wsdl:input message="tns:VersionSoapIn" />
+      <wsdl:output message="tns:VersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShipInformation">
+      <wsdl:input message="tns:GetShipInformationSoapIn" />
+      <wsdl:output message="tns:GetShipInformationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurants">
+      <wsdl:input message="tns:GetRestaurantsSoapIn" />
+      <wsdl:output message="tns:GetRestaurantsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVirtualRestaurants">
+      <wsdl:input message="tns:GetVirtualRestaurantsSoapIn" />
+      <wsdl:output message="tns:GetVirtualRestaurantsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailability">
+      <wsdl:input message="tns:GetAvailabilitySoapIn" />
+      <wsdl:output message="tns:GetAvailabilitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Submit">
+      <wsdl:input message="tns:SubmitSoapIn" />
+      <wsdl:output message="tns:SubmitSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Cancel">
+      <wsdl:input message="tns:CancelSoapIn" />
+      <wsdl:output message="tns:CancelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Replace">
+      <wsdl:input message="tns:ReplaceSoapIn" />
+      <wsdl:output message="tns:ReplaceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvenistaReservations">
+      <wsdl:input message="tns:GetAvenistaReservationsSoapIn" />
+      <wsdl:output message="tns:GetAvenistaReservationsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetItinerary">
+      <wsdl:input message="tns:GetItinerarySoapIn" />
+      <wsdl:output message="tns:GetItinerarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurantUtilisation">
+      <wsdl:input message="tns:GetRestaurantUtilisationSoapIn" />
+      <wsdl:output message="tns:GetRestaurantUtilisationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMealPeriodUtilisation">
+      <wsdl:input message="tns:GetMealPeriodUtilisationSoapIn" />
+      <wsdl:output message="tns:GetMealPeriodUtilisationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMealPeriods">
+      <wsdl:input message="tns:GetMealPeriodsSoapIn" />
+      <wsdl:output message="tns:GetMealPeriodsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AvenistaPMSGuestBookingsHttpGet">
+    <wsdl:operation name="Version">
+      <wsdl:input message="tns:VersionHttpGetIn" />
+      <wsdl:output message="tns:VersionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShipInformation">
+      <wsdl:input message="tns:GetShipInformationHttpGetIn" />
+      <wsdl:output message="tns:GetShipInformationHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurants">
+      <wsdl:input message="tns:GetRestaurantsHttpGetIn" />
+      <wsdl:output message="tns:GetRestaurantsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVirtualRestaurants">
+      <wsdl:input message="tns:GetVirtualRestaurantsHttpGetIn" />
+      <wsdl:output message="tns:GetVirtualRestaurantsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMealPeriods">
+      <wsdl:input message="tns:GetMealPeriodsHttpGetIn" />
+      <wsdl:output message="tns:GetMealPeriodsHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AvenistaPMSGuestBookingsHttpPost">
+    <wsdl:operation name="Version">
+      <wsdl:input message="tns:VersionHttpPostIn" />
+      <wsdl:output message="tns:VersionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShipInformation">
+      <wsdl:input message="tns:GetShipInformationHttpPostIn" />
+      <wsdl:output message="tns:GetShipInformationHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurants">
+      <wsdl:input message="tns:GetRestaurantsHttpPostIn" />
+      <wsdl:output message="tns:GetRestaurantsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVirtualRestaurants">
+      <wsdl:input message="tns:GetVirtualRestaurantsHttpPostIn" />
+      <wsdl:output message="tns:GetVirtualRestaurantsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMealPeriods">
+      <wsdl:input message="tns:GetMealPeriodsHttpPostIn" />
+      <wsdl:output message="tns:GetMealPeriodsHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AvenistaPMSGuestBookingsSoap" type="tns:AvenistaPMSGuestBookingsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Version">
+      <soap:operation soapAction="http://www.avenista.net/Version" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:VersionSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipInformation">
+      <soap:operation soapAction="http://www.avenista.net/GetShipInformation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetShipInformationSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurants">
+      <soap:operation soapAction="http://www.avenista.net/GetRestaurants" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetRestaurantsSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVirtualRestaurants">
+      <soap:operation soapAction="http://www.avenista.net/GetVirtualRestaurants" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetVirtualRestaurantsSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailability">
+      <soap:operation soapAction="http://www.avenista.net/GetAvailability" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetAvailabilitySecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit">
+      <soap:operation soapAction="http://www.avenista.net/Submit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SubmitSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cancel">
+      <soap:operation soapAction="http://www.avenista.net/Cancel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Replace">
+      <soap:operation soapAction="http://www.avenista.net/Replace" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ReplaceSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvenistaReservations">
+      <soap:operation soapAction="http://www.avenista.net/GetAvenistaReservations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetAvenistaReservationsSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItinerary">
+      <soap:operation soapAction="http://www.avenista.net/GetItinerary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetItinerarySecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurantUtilisation">
+      <soap:operation soapAction="http://www.avenista.net/GetRestaurantUtilisation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetRestaurantUtilisationSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMealPeriodUtilisation">
+      <soap:operation soapAction="http://www.avenista.net/GetMealPeriodUtilisation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetMealPeriodUtilisationSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMealPeriods">
+      <soap:operation soapAction="http://www.avenista.net/GetMealPeriods" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetMealPeriodsSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AvenistaPMSGuestBookingsSoap12" type="tns:AvenistaPMSGuestBookingsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Version">
+      <soap12:operation soapAction="http://www.avenista.net/Version" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:VersionSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipInformation">
+      <soap12:operation soapAction="http://www.avenista.net/GetShipInformation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetShipInformationSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurants">
+      <soap12:operation soapAction="http://www.avenista.net/GetRestaurants" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetRestaurantsSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVirtualRestaurants">
+      <soap12:operation soapAction="http://www.avenista.net/GetVirtualRestaurants" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetVirtualRestaurantsSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailability">
+      <soap12:operation soapAction="http://www.avenista.net/GetAvailability" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetAvailabilitySecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Submit">
+      <soap12:operation soapAction="http://www.avenista.net/Submit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SubmitSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cancel">
+      <soap12:operation soapAction="http://www.avenista.net/Cancel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Replace">
+      <soap12:operation soapAction="http://www.avenista.net/Replace" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ReplaceSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvenistaReservations">
+      <soap12:operation soapAction="http://www.avenista.net/GetAvenistaReservations" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetAvenistaReservationsSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetItinerary">
+      <soap12:operation soapAction="http://www.avenista.net/GetItinerary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetItinerarySecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurantUtilisation">
+      <soap12:operation soapAction="http://www.avenista.net/GetRestaurantUtilisation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetRestaurantUtilisationSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMealPeriodUtilisation">
+      <soap12:operation soapAction="http://www.avenista.net/GetMealPeriodUtilisation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetMealPeriodUtilisationSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMealPeriods">
+      <soap12:operation soapAction="http://www.avenista.net/GetMealPeriods" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetMealPeriodsSecuredWebServiceHeader" part="SecuredWebServiceHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AvenistaPMSGuestBookingsHttpGet" type="tns:AvenistaPMSGuestBookingsHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="Version">
+      <http:operation location="/Version" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipInformation">
+      <http:operation location="/GetShipInformation" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurants">
+      <http:operation location="/GetRestaurants" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVirtualRestaurants">
+      <http:operation location="/GetVirtualRestaurants" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMealPeriods">
+      <http:operation location="/GetMealPeriods" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AvenistaPMSGuestBookingsHttpPost" type="tns:AvenistaPMSGuestBookingsHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="Version">
+      <http:operation location="/Version" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipInformation">
+      <http:operation location="/GetShipInformation" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurants">
+      <http:operation location="/GetRestaurants" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVirtualRestaurants">
+      <http:operation location="/GetVirtualRestaurants" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMealPeriods">
+      <http:operation location="/GetMealPeriods" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AvenistaPMSGuestBookings">
+    <wsdl:port name="AvenistaPMSGuestBookingsSoap" binding="tns:AvenistaPMSGuestBookingsSoap">
+      <soap:address location="http://10.236.11.152/AvenistaPMSGuestBookings.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AvenistaPMSGuestBookingsSoap12" binding="tns:AvenistaPMSGuestBookingsSoap12">
+      <soap12:address location="http://10.236.11.152/AvenistaPMSGuestBookings.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AvenistaPMSGuestBookingsHttpGet" binding="tns:AvenistaPMSGuestBookingsHttpGet">
+      <http:address location="http://10.236.11.152/AvenistaPMSGuestBookings.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AvenistaPMSGuestBookingsHttpPost" binding="tns:AvenistaPMSGuestBookingsHttpPost">
+      <http:address location="http://10.236.11.152/AvenistaPMSGuestBookings.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
